@@ -76,8 +76,8 @@ var main = function(){
     tSquared = t * t
     tCubed = tSquared * t
 
-    result.x = (ax * tCubed) + (bx * tSquared) + (cx * t) + startPoint.x
-    result.y = (ay * tCubed) + (by * tSquared) + (cy * t) + startPoint.y
+    result.x = (ax * tCubed) + (bx * tSquared) + (cx * t) + startPoint.x + rectSize/2
+    result.y = (ay * tCubed) + (by * tSquared) + (cy * t) + startPoint.y + rectSize/2
 
     return result
   }
@@ -118,12 +118,12 @@ var main = function(){
     }
   }
 
-  var mouseUp = function () {
+  var mouseUp = function (event) {
     down = false;
     draggingPoint = undefined
   }
 
-  var mouseDown = function () {
+  var mouseDown = function (event) {
     down = true;
     canvasMouseX = event.clientX - (canvas.offsetLeft - window.pageXOffset)
     canvasMouseY = event.clientY - (canvas.offsetTop - window.pageYOffset)
@@ -154,5 +154,7 @@ var main = function(){
   canvas.addEventListener('mouseup', mouseUp, false)
   canvas.addEventListener('mousemove',mouseMove, false)
 
+  computeBezier()
+  
   setInterval(draw, 10);
 }()
