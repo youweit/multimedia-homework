@@ -1,0 +1,23 @@
+{
+  "name": "multimedia-homework",
+  "version": "1.0.0",
+  "description": "Multimedia homework",
+  "main": "index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youweit/multimedia-homework.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/youweit/multimedia-homework/issues"
+  },
+  "homepage": "https://github.com/youweit/multimedia-homework#readme",
+  "devDependencies": {
+    "gulp-livereload": "^3.8.1",
+    "gulp-webserver": "^0.9.1"
+  }
+}
