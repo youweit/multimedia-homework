@@ -52,9 +52,9 @@ THE SOFTWARE.
     }
   }
 
-  function Bezier () {
+  function Bezier (canvasId) {
     // drawing stuffs
-    var canvas = document.getElementById('bezier-canvas')
+    var canvas = document.getElementById(canvasId)
     var ctx = canvas.getContext('2d')
     var curve = []
     var numberOfPoints = 600
@@ -152,18 +152,19 @@ THE SOFTWARE.
       }
     }
 
-    // add listeners
-    canvas.addEventListener('mousedown', mouseDown, false)
-    canvas.addEventListener('mouseup', mouseUp, false)
-    canvas.addEventListener('mousemove', mouseMove, false)
-    // add points to the controlPoints
-    controlPoints.push(startPoint)
-    controlPoints.push(controlPoint1)
-    controlPoints.push(controlPoint2)
-    controlPoints.push(endPoint)
-    computeBezier()
-    setInterval(draw, 16) // draw every 16 milliseconds
+    this.render = function render () {
+      // add listeners
+      canvas.addEventListener('mousedown', mouseDown, false)
+      canvas.addEventListener('mouseup', mouseUp, false)
+      canvas.addEventListener('mousemove', mouseMove, false)
+      // add points to the controlPoints
+      controlPoints.push(startPoint)
+      controlPoints.push(controlPoint1)
+      controlPoints.push(controlPoint2)
+      controlPoints.push(endPoint)
+      computeBezier()
+      setInterval(draw, 16) // draw every 16 milliseconds
+    }
   }
-  exports.Bezier = Bezier()
+  exports.Bezier = Bezier
 })(this)
-

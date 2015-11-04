@@ -22,79 +22,59 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-"use strict"; 
+(function (exports) {
+  'use strict'; // eslint-disable-line
 
-function Point(x, y) {
-  this.x = x
-  this.y = y
-}
+  var DEGREES_TO_RADIANS = Math.PI / 180.0
 
+  function FractalTree (canvasId) {
+    // drawing stuffs
+    var canvas = document.getElementById(canvasId)
+    var ctx = canvas.getContext('2d')
+    // control
+    var currentDepth = 7
 
-var main = function(){
-  var canvas = document.getElementById('fractal-canvas')
-  var ctx = canvas.getContext('2d')
-  var degree = 30
-  var maxDepth = 7
-  var depth = 0
-  var recusionDepth = 0
-  var x = (canvas.width - 20)/2
-  var y = canvas.height
-
-  function clear() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-  }
-
-  function branch(width, height , currentDepth){
-    if (currentDepth > 0) {
-      y -= height
-      currentDepth--
-      console.log(x,y,"height", height, "width", width)
-      drawRotatedRect(x, y, width, height, -30)
-      drawRotatedRect(width + x, y, width, height, 30)
-      height = height * 0.66
-      width  = width * 0.5
-      branch(width, height, currentDepth)
-
-    }
-  }
-
-  var mouseDown = function (event) {
-    clear()
-    y = canvas.height
-    if (event.button == 2) {
-      if (depth > 0) depth--
-      console.log("left mouse click")
-    } else {
-      if (depth < 7) depth++
-      console.log("right mouse click")
+    function drawTree (x1, y1, length, width, angle, depth) {
+      if (depth !== 0) {
+        var x2 = x1 + (Math.cos(angle * DEGREES_TO_RADIANS) * length)
+        var y2 = y1 + (Math.sin(angle * DEGREES_TO_RADIANS) * length)
+        drawRect(x1, y1, x2, y2, width, depth)
+        drawTree(x2, y2, length * 2 / 3, width / 2, angle - 30, depth - 1)
+        drawTree(x2, y2, length * 2 / 3, width / 2, angle + 30, depth - 1)
+      }
     }
 
-    branch(20, 100, depth)
-    console.log(depth)
+    function drawRect (x1, y1, x2, y2, width, depth) {
+      ctx.beginPath()
+      ctx.lineWidth = width
+      ctx.moveTo(x1, y1)
+      ctx.lineTo(x2, y2)
+      if (currentDepth - depth >= 6) {
+        ctx.strokeStyle = 'green'
+      } else {
+        ctx.strokeStyle = 'brown'
+      }
+      ctx.stroke()
+    }
+
+    function clear () {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
+
+    function mouseDown (event) {
+      clear()
+      if (event.button === 2) {
+        if (currentDepth > 0) currentDepth--
+      } else {
+        currentDepth++
+      }
+      drawTree(canvas.width / 2, canvas.height - 50, 100, 20, -90, currentDepth)
+    }
+
+    this.render = function render () {
+      canvas.addEventListener('mousedown', mouseDown, false)
+      drawTree(canvas.width / 2, canvas.height - 50, 100, 20, -90, currentDepth)
+    }
   }
-
-  function drawRotatedRect(x, y, width, height, degrees){
-    // first save the untranslated/unrotated context
-    ctx.save()
-
-    ctx.fillStyle="#7e3a1c"
-
-    ctx.beginPath()
-    // move the rotation point to the center of the rect
-    ctx.translate( x+width/2, y+height/2 )
-    // rotate the rect
-    ctx.rotate(degrees*Math.PI/180)
-
-    // draw the rect on the transformed context
-    // Note: after transforming [0,0] is visually [x,y]
-    //       so the rect needs to be offset accordingly when drawn
-    ctx.rect( -width/2, -height/2, width,height)
-    ctx.fill()
-
-    // restore the context to its untranslated/unrotated state
-    ctx.restore()
-  }
-
-  canvas.addEventListener('mousedown', mouseDown, false)
-
-}()
+  exports.FractalTree = FractalTree
+})(this)

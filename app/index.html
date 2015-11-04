@@ -15,6 +15,7 @@
 .box {
   border:1px solid #000000;
 }
+
 </style>
 
 <head>
@@ -22,13 +23,9 @@
 	<title>Multi Media Homework</title>
 </head>
 
-<script type="text/javascript">
+<script type="text/javascript" src="./bezier.js"></script>
+<script type="text/javascript" src="./fractal.js"></script>
 
-  //disable the right click menu.
-  // document.addEventListener("contextmenu", function(e){
-  //   e.preventDefault();
-  // }, false);
-</script>
 
 <body class="noneSelect">
   <canvas id="bezier-canvas" width="400" height="300" class="box"></canvas>
@@ -36,6 +33,16 @@
 </body>
 
 
-<script type="text/javascript" src="./bezier.js"></script>
-<script type="text/javascript" src="./fractal.js"></script>
+<script type="text/javascript">
+   // disable the right click menu.
+  document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+  }, false);
+
+  var bezier = new Bezier('bezier-canvas')
+  bezier.render()
+  var fractalTree = new FractalTree('fractal-canvas')
+  fractalTree.render()
+</script>
+
 </html>
