@@ -55,6 +55,8 @@ THE SOFTWARE.
         ctx.strokeStyle = 'brown'
       }
       ctx.stroke()
+      ctx.font = '30px Arial'
+      ctx.fillText(currentDepth + ' level', 20, 50)
     }
 
     function clear () {

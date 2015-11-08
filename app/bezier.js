@@ -146,10 +146,11 @@ THE SOFTWARE.
       hitTest(cursorPosition, controlPoints, function (collider) {
         draggingRect = collider
       })
-
-      if (!draggingRect) {
-        console.log('add point to array')
-      }
+      // uncomment to dynamically add control points
+      // if (!draggingRect) {
+      //   controlPoints.splice(-1, 0, new Rect(cursorPosition.x, cursorPosition.y, controlPointSize, controlPointSize))
+      //   computeBezier()
+      // }
     }
 
     this.render = function render () {

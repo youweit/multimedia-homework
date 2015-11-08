@@ -28,19 +28,12 @@
 
 <body class="noneSelect">
   <canvas id="bezier-canvas" width="800" height="600" class="box"></canvas>
-  <canvas id="fractal-canvas" width="800" height="600" class="box"></canvas>
 </body>
 
 <script type="text/javascript">
    // disable the right click menu.
-  // document.addEventListener('contextmenu', function (e) {
-  //   e.preventDefault()
-  // }, false)
-
   var bezier = new Bezier('bezier-canvas')
   bezier.render()
-  var fractalTree = new FractalTree('fractal-canvas')
-  fractalTree.render()
 </script>
 
 </html>
