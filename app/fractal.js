@@ -35,7 +35,7 @@ THE SOFTWARE.
     var currentDepth = 7
 
     function drawTree (x1, y1, length, width, angle, depth) {
-      if (depth !== 0 && length > 2) {
+      if (depth !== 0 /* && length > 2 */) {
         var x2 = x1 + (Math.cos(angle * DEGREES_TO_RADIANS) * length)
         var y2 = y1 + (Math.sin(angle * DEGREES_TO_RADIANS) * length)
         drawRect(x1, y1, x2, y2, width, depth)
